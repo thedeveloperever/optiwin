@@ -58,7 +58,7 @@ set date1=%date:/=.%
 >nul 2>&1 md %SYSTEMDRIVE%\OptiWin\HoneRevert\%date1%
 reg export HKCU %SYSTEMDRIVE%\OptiWin%date1%\HKLM.reg /y >nul 2>&1
 reg export HKCU %SYSTEMDRIVE%\OptiWin%date1%\HKCU.reg /y >nul 2>&1
-echo set "firstlaunch=0" > %SYSTEMDRIVE%\OptiWinfirstlaunch.bat
+echo set "firstlaunch=0" > %SYSTEMDRIVE%\OptiWin\firstlaunch.bat
 
 :MainMenu
 Mode 130,45
@@ -113,7 +113,7 @@ goto :eof
 
 :Tweaks
 Mode 130,45
-TITLE Hone Control Panel %localtwo%
+TITLE OptiWin Panel %localtwo%
 set "choice="
 set "BLANK=   "
 REM Check Values
@@ -266,9 +266,9 @@ echo                                                               %COL%[1;4;34m
 echo.
 echo                                                        %COL%[1;4;34mMiscellaneous Tweaks%COL%[0m
 echo.
-echo              %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Reduce Audio Latency %AUDOF%       %COL%[33m[%COL%[37m 8 %COL%[33m]%COL%[37m Debloat %COL%[93mN/A                    %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
-echo              %COL%[90mReduces Audio Latency  		  %COL%[91mComing Soon			       %COL%[90mDisable protections against memory
-echo              %COL%[91mDon't use on slow or old CPU's	  %COL%[90m				       %COL%[90mbased attacks that consume perf
+echo              %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Reduce Audio Latency %AUDOF%                    %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
+echo              %COL%[90mReduces Audio Latency  		                                            %COL%[90mDisable protections against memory
+echo              %COL%[91mDon't use on slow or old CPU's	                                            %COL%[90mbased attacks that consume perf
 echo.
 echo              %COL%[33m[%COL%[37m 10 %COL%[33m]%COL%[37m Cleaner %BLANK%                   %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Game-Booster %BLANK%              %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Soft Restart %BLANK%
 echo              %COL%[90mRemove adware, unused devices, and   %COL%[90mSets GPU ^& CPU to high performance   %COL%[90mIf your PC has been running a while
@@ -286,11 +286,10 @@ if /i "%choice%"=="4" goto AllGPUTweaks
 if /i "%choice%"=="5" goto Intel
 if /i "%choice%"=="6" goto AMD
 if /i "%choice%"=="7" goto AudioLatency
-if /i "%choice%"=="8" call:Comingsoon
-if /i "%choice%"=="9" goto Mitigations
-if /i "%choice%"=="10" call:Cleaner
-if /i "%choice%"=="11" call:gameBooster
-if /i "%choice%"=="12" call:softRestart
+if /i "%choice%"=="8" goto Mitigations
+if /i "%choice%"=="9" call:Cleaner
+if /i "%choice%"=="10" call:gameBooster
+if /i "%choice%"=="11" call:softRestart
 if /i "%choice%"=="X" exit /b
 if /i "%choice%"=="B" goto MainMenu
 if /i "%choice%"=="N" (set "PG=TweaksPG1") & goto TweaksPG1
@@ -298,7 +297,7 @@ goto TweaksPG2
 
 :PowerPlan
 if "%PWROF%" == "%COL%[91mOFF" (
-	curl -g -k -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\Calypto.pow" "https://github.com/IDIVASM/POWERPLAN-WINDOWS-10-/blob/main/Custom%20-%20Calypto's%20Power%20Plan.pow"
+	curl -g -k -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\Calypto.pow" "https://github.com/thenstop/optiwin/raw/main/Calypto.pow"
 	powercfg /d 44444444-4444-4444-4444-444444444444
 	powercfg -import "%SYSTEMDRIVE%\OptiWin\Resources\Calypto.pow" 44444444-4444-4444-4444-444444444444
 	powercfg /changename 44444444-4444-4444-4444-444444444449 "Calypto's Power Plan" "Increase FPS and lower latency."
