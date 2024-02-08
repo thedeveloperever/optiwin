@@ -16,13 +16,11 @@ if %errorlevel% neq 0 start "" /wait /I /min powershell -NoProfile -Command star
 REM Show Detailed BSoD
 reg add "HKLM\System\CurrentControlSet\Control\CrashControl" /v "DisplayParameters" /t REG_DWORD /d "1" /f >nul 2>&1
 
-
 REM Blank/Color Character
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (set "DEL=%%a" & set "COL=%%b")
 
 REM Add ANSI escape sequences
 reg add HKCU\CONSOLE /v VirtualTerminalLevel /t REG_DWORD /d 1 /f >nul 2>&1
-
 
 :Disclaimer
 reg query "HKCU\Software\OptiWin" /v "Disclaimer" >nul 2>&1
@@ -31,19 +29,22 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                                        %COL%[90m  OptiWin is a free and open-source fork of HoneCTRL
-echo                                        %COL%[90m     made to improve your day-to-day productivity
+echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
 echo.
-echo     WARNING:
-echo     Please note that there is no guarantee of an FPS boost or latency reduction, every system is different.
+echo                            %COL%[90m                                   WARNING:
+echo                            %COL%[90m  Please note that there is no guarantee of an FPS boost or latency reduction
+echo                            %COL%[90m                        as every system is different.
 echo.
-echo     If you don't know what a tweak is, do not use it and instead research more on it.
+echo                            %COL%[90m  If you don't know what a tweak is, do not use it and instead research more
+echo                            %COL%[90m                                    on it.
 echo.
-echo     For any questions and/or concerns, please research on your own from the original tweak sources.
+echo                            %COL%[90m   For any questions and/or concerns, please research on your own from the
+echo                            %COL%[90m                           original tweak sources.
 echo.
-echo     Please enter "I agree" without quotes to continue:
+echo                            %COL%[90m             Please enter "I agree" without quotes to continue:
 echo.
 echo.
 echo.
@@ -55,9 +56,9 @@ REM HKCU & HKLM backup
 
 for /F "tokens=2" %%i in ('date /t') do set date=%%i
 set date1=%date:/=.%
->nul 2>&1 md %SYSTEMDRIVE%\OptiWin\HoneRevert\%date1%
-reg export HKCU %SYSTEMDRIVE%\OptiWin%date1%\HKLM.reg /y >nul 2>&1
-reg export HKCU %SYSTEMDRIVE%\OptiWin%date1%\HKCU.reg /y >nul 2>&1
+>nul 2>&1 md %SYSTEMDRIVE%\OptiWin\\%date1%
+reg export HKCU %SYSTEMDRIVE%\OptiWin\%date1%\HKLM.reg /y >nul 2>&1
+reg export HKCU %SYSTEMDRIVE%\OptiWin\%date1%\HKCU.reg /y >nul 2>&1
 echo set "firstlaunch=0" > %SYSTEMDRIVE%\OptiWin\firstlaunch.bat
 
 :MainMenu
@@ -69,15 +70,15 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                                        %COL%[90m  OptiWin is a free and open-source desktop utility
-echo                                        %COL%[90m    made to improve your day-to-day productivity
+echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
 echo.
 echo.
 echo.
 echo.
-echo                                           %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Optimizations          %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m Advanced 
+echo                            %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Optimizations          %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m Advanced 
 echo.
 echo.
 echo.
@@ -266,13 +267,13 @@ echo                                                               %COL%[1;4;34m
 echo.
 echo                                                        %COL%[1;4;34mMiscellaneous Tweaks%COL%[0m
 echo.
-echo              %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Reduce Audio Latency %AUDOF%                    %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
-echo              %COL%[90mReduces Audio Latency  		                                            %COL%[90mDisable protections against memory
-echo              %COL%[91mDon't use on slow or old CPU's	                                            %COL%[90mbased attacks that consume perf
+echo                                            %COL%[33m[%COL%[37m 8 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
+echo                                                       %COL%[90mDisable protections against memory
+echo                                                        %COL%[90mbased attacks that consume perf
 echo.
-echo              %COL%[33m[%COL%[37m 10 %COL%[33m]%COL%[37m Cleaner %BLANK%                   %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Game-Booster %BLANK%              %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Soft Restart %BLANK%
-echo              %COL%[90mRemove adware, unused devices, and   %COL%[90mSets GPU ^& CPU to high performance   %COL%[90mIf your PC has been running a while
-echo              %COL%[90mtemp files. Empties recycle bin.     %COL%[90mDisables fullscreen optimizations    %COL%[90muse this to receive a quick boost
+echo              %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Game-Booster %BLANK%                            %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Soft Restart %BLANK%
+echo              %COL%[90mSets GPU ^& CPU to high performance                                              %COL%[90mIf your PC has been running a while
+echo              %COL%[90mDisables fullscreen optimizations                                                %COL%[90muse this to receive a quick boost
 echo.
 echo.
 echo.
@@ -287,9 +288,8 @@ if /i "%choice%"=="5" goto Intel
 if /i "%choice%"=="6" goto AMD
 if /i "%choice%"=="7" goto AudioLatency
 if /i "%choice%"=="8" goto Mitigations
-if /i "%choice%"=="9" call:Cleaner
-if /i "%choice%"=="10" call:gameBooster
-if /i "%choice%"=="11" call:softRestart
+if /i "%choice%"=="9" call:gameBooster
+if /i "%choice%"=="10" call:softRestart
 if /i "%choice%"=="X" exit /b
 if /i "%choice%"=="B" goto MainMenu
 if /i "%choice%"=="N" (set "PG=TweaksPG1") & goto TweaksPG1
@@ -435,13 +435,13 @@ echo.
 echo.
 echo.
 echo.
-echo                                             ::::::::::
-echo                                            :+:    :+:
-echo                                           +:+    +:+
-echo                                          +#+    +:+
-echo                                         +#+    +#+
-echo                                        #+#    #+#
-echo                                       ##########
+echo                                                  ::::::::::    :::::::::::  ::::::::::   :::           
+echo                                                 :+:    :+:    :+:     :+:      :+:      :+:            
+echo                                                +:+    +:+    :+:     +:+      +:+      +:+             
+echo                                               +#+    +:+    +#+ +:+ +#+      +:+      +#+              
+echo                                              +#+    +#+    +#+              +#+      +#+               
+echo                                             #+#    #+#    #+#              #+#      #+#                
+echo                                            ##########    ###              ###      ###                 
 echo.
 echo.
 echo.
@@ -450,9 +450,9 @@ echo.
 echo.
 echo.
 echo.
-echo                    %COL%[33m[ %COL%[37m1 %COL%[33m] %COL%[37m26 Hex                                                   %COL%[33m[ %COL%[37m2 %COL%[33m] %COL%[37m28 Hex
+echo                    %COL%[33m[ %COL%[37m1 %COL%[33m] %COL%[37m26 Hex                        %COL%[33m[ %COL%[37m2 %COL%[33m] %COL%[37m2A Hex
 echo                    %COL%[90mDefault                                                        %COL%[90mMight be better
-echo                    %COL%[90mShort, Variable, High foreground boost.                        %COL%[90mShort, Fixed, No foreground boost.
+echo                    %COL%[90mShort, Variable, High foreground boost.                        %COL%[90mShort, Fixed, High foreground boost.
 echo.
 echo.
 echo.
@@ -469,7 +469,7 @@ echo.
 %SYSTEMROOT%\System32\choice.exe /c:12X /n /m "%DEL%                                                               >:"
 if %errorlevel% == 3 goto Tweaks
 if %errorlevel% == 1 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "38" /f >nul 2>&1
-if %errorlevel% == 2 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "40" /f >nul 2>&1
+if %errorlevel% == 2 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "42" /f >nul 2>&1
 goto Tweaks
 
 :MemOptimization
@@ -803,8 +803,8 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                                        %COL%[90m OptiWin is a free and open-source desktop utility
-echo                                        %COL%[90m    made to improve your day-to-day productivity
+echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
 echo.
@@ -906,8 +906,8 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                                        %COL%[90m OptiWin is a free and open-source desktop utility
-echo                                        %COL%[90m    made to improve your day-to-day productivity
+echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
 echo.
@@ -1352,8 +1352,8 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                                        %COL%[90m HoneCtrl is a free and open-source desktop utility
-echo                                        %COL%[90m    made to improve your day-to-day productivity
+echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
 echo.
