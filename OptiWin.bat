@@ -266,7 +266,7 @@ echo              %COL%[90mGPU brands and manufacturers         %COL%[90ma intel
 echo.
 echo                                                        %COL%[1;4;34mMiscellaneous Tweaks%COL%[0m
 echo.
-echo                                            %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
+echo                                                   %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
 echo                                                       %COL%[90mDisable protections against memory
 echo                                                        %COL%[90mbased attacks that consume perf
 echo.
