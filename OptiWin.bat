@@ -263,17 +263,12 @@ echo.
 echo              %COL%[33m[%COL%[37m 4 %COL%[33m]%COL%[37m All GPU Tweaks %ALLOF%             %COL%[33m[%COL%[37m 5 %COL%[33m]%COL%[37m Optimize Intel iGPU %DSSOF%        %COL%[33m[%COL%[37m 6 %COL%[33m]%COL%[37m AMD GPU Tweaks %AMDOF%
 echo              %COL%[90mVarious essential tweaks for all     %COL%[90mIncrease dedicated video vram on     %COL%[90mConfigure AMD GPU to optimized
 echo              %COL%[90mGPU brands and manufacturers         %COL%[90ma intel iGPU                         %COL%[90msettings
-echo                                                               %COL%[1;4;34mBloat%COL%[0m
 echo.
 echo                                                        %COL%[1;4;34mMiscellaneous Tweaks%COL%[0m
 echo.
-echo                                            %COL%[33m[%COL%[37m 8 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
+echo                                            %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
 echo                                                       %COL%[90mDisable protections against memory
 echo                                                        %COL%[90mbased attacks that consume perf
-echo.
-echo              %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Game-Booster %BLANK%                            %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Soft Restart %BLANK%
-echo              %COL%[90mSets GPU ^& CPU to high performance                                              %COL%[90mIf your PC has been running a while
-echo              %COL%[90mDisables fullscreen optimizations                                                %COL%[90muse this to receive a quick boost
 echo.
 echo.
 echo.
@@ -286,10 +281,7 @@ if /i "%choice%"=="3" goto Netsh
 if /i "%choice%"=="4" goto AllGPUTweaks
 if /i "%choice%"=="5" goto Intel
 if /i "%choice%"=="6" goto AMD
-if /i "%choice%"=="7" goto AudioLatency
 if /i "%choice%"=="8" goto Mitigations
-if /i "%choice%"=="9" call:gameBooster
-if /i "%choice%"=="10" call:softRestart
 if /i "%choice%"=="X" exit /b
 if /i "%choice%"=="B" goto MainMenu
 if /i "%choice%"=="N" (set "PG=TweaksPG1") & goto TweaksPG1
@@ -435,13 +427,13 @@ echo.
 echo.
 echo.
 echo.
-echo                                                  ::::::::::    :::::::::::  ::::::::::   :::           
-echo                                                 :+:    :+:    :+:     :+:      :+:      :+:            
-echo                                                +:+    +:+    :+:     +:+      +:+      +:+             
-echo                                               +#+    +:+    +#+ +:+ +#+      +:+      +#+              
-echo                                              +#+    +#+    +#+              +#+      +#+               
-echo                                             #+#    #+#    #+#              #+#      #+#                
-echo                                            ##########    ###              ###      ###                 
+echo                                                      ::::::::::    :::::::::::  ::::::::::   :::           
+echo                                                     :+:    :+:    :+:     :+:      :+:      :+:            
+echo                                                    +:+    +:+    :+:     +:+      +:+      +:+             
+echo                                                   +#+    +:+    +#+ +:+ +#+      +:+      +#+              
+echo                                                  +#+    +#+    +#+              +#+      +#+               
+echo                                                 #+#    #+#    #+#              #+#      #+#                
+echo                                                ##########    ###              ###      ###                 
 echo.
 echo.
 echo.
@@ -1537,7 +1529,7 @@ echo.
 echo.
 echo.
 echo %COL%[90m                                                         Product Lead
-echo %COL%[97m                                                       Levi L. - thenstop
+echo %COL%[97m                                                       Levi - thenstop
 echo.
 echo.
 echo.
@@ -1549,7 +1541,7 @@ echo.
 echo.
 echo %COL%[90m                                                          Credits to
 echo %COL%[97m                                                       AdamX - DSCP Values, HDCP research
-echo %COL%[97m                                                  Djdallmann - Other research
+echo %COL%[97m                                                  Djdallmann - Networking and General research
 echo %COL%[97m                                                     Calypto - Most of these "custom" power plans
 echo %COL%[97m                                                      Melody - csrss.exe priority
 echo %COL%[97m                                                     mbk1969 - MSI Mode research
