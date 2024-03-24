@@ -464,166 +464,6 @@ if %errorlevel% == 1 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityCont
 if %errorlevel% == 2 reg add "HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d "42" /f >nul 2>&1
 goto Tweaks
 
-:MemOptimization
-if "%ME2OF%" == "%COL%[91mOFF" (
-	reg add "HKCU\Software\OptiWin" /v "MemoryTweaks" /f
-	REM Disable FTH
-	reg add "HKLM\Software\Microsoft\FTH" /v "Enabled" /t Reg_DWORD /d "0" /f
-	REM Disable Desktop Composition
-	reg add "HKCU\Software\Microsoft\Windows\DWM" /v "Composition" /t REG_DWORD /d "0" /f
-	REM Disable Background apps
-	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t Reg_DWORD /d "1" /f
-	reg add "HKLM\Software\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsRunInBackground" /t Reg_DWORD /d "2" /f
-	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "BackgroundAppGlobalToggle" /t Reg_DWORD /d "0" /f
-	REM Disallow drivers to get paged into virtual memory
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "DisablePagingExecutive" /t Reg_DWORD /d "1" /f
-	REM Disable Page Combining and Memory Compression
-	powershell -NoProfile -Command "Disable-MMAgent -PageCombining -mc"
-	reg add "HKLM\System\CurrentControlSet\Control\Session Manager\Memory Management" /v "DisablePageCombining" /t REG_DWORD /d "1" /f
-	REM Use Large System Cache to improve microstuttering
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t Reg_DWORD /d "1" /f
-	REM Free unused ram
-	reg add "HKLM\System\CurrentControlSet\Control\Session Manager" /v "HeapDeCommitFreeBlockThreshold" /t REG_DWORD /d "262144" /f
-	REM Auto restart Powershell on error
-	reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoRestartShell" /t REG_DWORD /d "1" /f
-	REM Disk Optimizations
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "DontVerifyRandomDrivers" /t REG_DWORD /d "1" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d "0" /f
-	REM Disable Prefetch and Superfetch
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnablePrefetcher" /t Reg_DWORD /d "0" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnableSuperfetch" /t Reg_DWORD /d "0" /f
-	REM Disable Hibernation + Fast Startup
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /t REG_DWORD /d "0" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "HibernateEnabledDefault" /t REG_DWORD /d "0" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "HibernateEnabled" /t REG_DWORD /d "0" /f
-	REM Wait time to kill app during shutdown
-	reg add "HKCU\Control Panel\Desktop" /v "WaitToKillAppTimeout" /t Reg_SZ /d "1000" /f
-	REM Wait to end service at shutdown
-	reg add "HKLM\System\CurrentControlSet\Control" /v "WaitToKillServiceTimeout" /t Reg_SZ /d "1000" /f
-	REM Wait to kill non-responding app
-	reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t Reg_SZ /d "1000" /f
-	REM Increase icon cache size
-	reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "Max Cached Icons" /t REG_SZ /d "4096" /f
-	REM fsutil
-	if exist "%SYSTEMROOT%\System32\fsutil.exe" (
-		REM Raise the limit of paged pool memory
-		fsutil behavior set memoryusage 2
-		REM https://www.serverbrain.org/solutions-2003/the-mft-zone-can-be-optimized.html
-		fsutil behavior set mftzone 2
-		REM Disable Last Access information on directories, performance/privacy
-		fsutil behavior set disablelastaccess 1
-		REM Disable Virtual Memory Pagefile Encryption
-		fsutil behavior set encryptpagingfile 0
-		REM Disables the creation of legacy 8.3 character-length file names on FAT- and NTFS-formatted volumes.
-		fsutil behavior set disable8dot3 1
-		REM Disable NTFS compression
-		fsutil behavior set disablecompression 1
-		REM Enable Trim
-		fsutil behavior set disabledeletenotify 0
-		REM Disable ReFS v2 auto tiering logic for tiered volumes. https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/fsutil-behavior https://forums.veeam.com/veeam-backup-replication-f2/refs-strange-performance-issues-t65280.html
-		fsutil behavior set disablewriteautotiering 1
-		REM Set the NTFS quota report interval to 90 minutes.
-		fsutil behavior set quotanotify 5400
-	)
-) >nul 2>&1 else (
-	reg delete "HKCU\Software\OptiWin" /v MemoryTweaks /f
-	REM Delete FTH
-	reg delete "HKLM\Software\Microsoft\FTH" /v "Enabled" /f
-	REM Delete Desktop Composition
-	reg delete "HKCU\Software\Microsoft\Windows\DWM" /v "Composition" /f
-	REM Enable Background apps
-	reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /f
-	reg delete "HKLM\Software\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsRunInBackground" /f
-	reg delete "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "BackgroundAppGlobalToggle" /f
-	REM Disallow drivers to get paged into virtual memory
-	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "DisablePagingExecutive" /f
-	REM Enable Page Combining and memory compression
-	powershell -NoProfile -Command "Enable-MMAgent -PagingCombining -mc"
-	REM Use Large System Cache to improve microstuttering
-	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "LargeSystemCache" /f
-	REM Don't free unused ram
-	reg delete "HKLM\System\CurrentControlSet\Control\Session Manager" /v "HeapDeCommitFreeBlockThreshold" /f
-	REM Don't restart Powershell on error
-	reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoRestartShell" /t REG_DWORD /d "0" /f
-	REM Disk Optimizations
-	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "DontVerifyRandomDrivers" /f
-	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\FileSystem" /v "LongPathsEnabled" /f
-	REM Enable Prefetch
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnablePrefetcher" /t Reg_DWORD /d "3" /f
-	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters" /v "EnableSuperfetch" /t Reg_DWORD /d "3" /f
-	REM Background Apps
-	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications" /v "GlobalUserDisabled" /t Reg_DWORD /d "0" /f
-	reg delete "HKLM\Software\Policies\Microsoft\Windows\AppPrivacy" /v "LetAppsRunInBackground" /f
-	reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Search" /v "BackgroundAppGlobalToggle" /t Reg_DWORD /d "1" /f
-	REM Hibernation + Fast Startup
-	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power" /v "HiberbootEnabled" /f
-	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "HibernateEnabledDefault" /f
-	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Power" /v "HibernateEnabled" /f
-	REM Wait time to kill app during shutdown
-	reg add "HKCU\Control Panel\Desktop" /v "WaitToKillAppTimeout" /t Reg_SZ /d "20000" /f
-	REM Wait to end service at shutdown
-	reg add "HKLM\System\CurrentControlSet\Control" /v "WaitToKillServiceTimeout" /t Reg_SZ /d "20000" /f
-	REM Wait to kill non-responding app
-	reg add "HKCU\Control Panel\Desktop" /v "HungAppTimeout" /t Reg_SZ /d "5000" /f
-	REM Decrease icon cache size
-	reg delete "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer" /v "Max Cached Icons" /f
-	REM fsutil
-	if exist "%SYSTEMROOT%\System32\fsutil.exe" (
-		REM Set default limit of paged pool memory
-		fsutil behavior set memoryusage 1
-		REM https://www.serverbrain.org/solutions-2003/the-mft-zone-can-be-optimized.html
-		fsutil behavior set mftzone 1
-		REM Default Last Access information on directories, performance/privacy value
-		fsutil behavior set disablelastaccess 2
-		REM Default Virtual Memory Pagefile Encryption value
-		fsutil behavior set encryptpagingfile 0
-		REM Default creation of legacy 8.3 character-length file names on FAT- and NTFS-formatted volumes value
-		fsutil behavior set disable8dot3 1
-		REM Default NTFS compression
-		fsutil behavior set disablecompression 0
-		REM Enable Trim
-		fsutil behavior set disabledeletenotify 0
-		REM Enable ReFS v2 auto tiering logic for tiered volumes. https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/fsutil-behavior https://forums.veeam.com/veeam-backup-replication-f2/refs-strange-performance-issues-t65280.html
-		fsutil behavior set disablewriteautotiering 0
-		REM Set the NTFS quota report interval to its default value.
-		fsutil behavior set quotanotify 3600
-	)
-) >nul 2>&1
-call :OptiWinRestart "Memory Optimization" "%ME2OF%"
-Mode 130,45
-goto Tweaks
-
-:Mouse
-cls
-if "%MOUOF%" neq "%COL%[91mOFF" (
-	reg add "HKEY_CURRENT_USER\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "0000000000000000156e000000000000004001000000000029dc0300000000000000280000000000" /f
-	reg add "HKEY_CURRENT_USER\Control Panel\Mouse" /v "SmoothMouseYCurve" /t REG_BINARY /d "0000000000000000fd11010000000000002404000000000000fc12000000000000c0bb0100000000" /f
-	goto tweaks
-) >nul 2>&1
-reg add "HKCU\Control Panel\Mouse" /v "MouseSpeed" /t REG_SZ /d "0" /f >nul 2>&1
-reg add "HKCU\Control Panel\Mouse" /v "MouseThreshold1" /t REG_SZ /d "0" /f >nul 2>&1
-reg add "HKCU\Control Panel\Mouse" /v "MouseThreshold2" /t REG_SZ /d "0" /f >nul 2>&1
-reg add "HKCU\Control Panel\Mouse" /v "MouseSensitivity" /t REG_SZ /d "10" /f >nul 2>&1
-reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseYCurve" /t REG_BINARY /d "0000000000000000000038000000000000007000000000000000A800000000000000E00000000000" /f >nul 2>&1
-control.exe desk.cpl,Settings,@Settings
-:ChooseScale
-echo What is your current display scaling percentage? 100, 125, 150, 175, 200, 225, 250, 300, 350 (Don't put a %% symbol)
-set /p choice=" Scale > "
-if /i "%choice%"=="100" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "0000000000000000C0CC0C0000000000809919000000000040662600000000000033330000000000" /f >nul 2>&1 & goto MouseEnd
-if /i "%choice%"=="125" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "00000000000000000000100000000000000020000000000000003000000000000000400000000000" /f >nul 2>&1 & goto MouseEnd
-if /i "%choice%"=="150" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "0000000000000000303313000000000060662600000000009099390000000000C0CC4C0000000000" /f >nul 2>&1 & goto MouseEnd
-if /i "%choice%"=="175" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "00000000000000006066160000000000C0CC2C000000000020334300000000008099590000000000" /f >nul 2>&1 & goto MouseEnd
-if /i "%choice%"=="200" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "000000000000000090991900000000002033330000000000B0CC4C00000000004066660000000000" /f >nul 2>&1 & goto MouseEnd
-if /i "%choice%"=="225" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "0000000000000000C0CC1C0000000000809939000000000040665600000000000033730000000000" /f >nul 2>&1 & goto MouseEnd
-if /i "%choice%"=="250" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "00000000000000000000200000000000000040000000000000006000000000000000800000000000" /f >nul 2>&1 & goto MouseEnd
-if /i "%choice%"=="300" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "00000000000000006066260000000000C0CC4C000000000020337300000000008099990000000000" /f >nul 2>&1 & goto MouseEnd
-if /i "%choice%"=="350" reg add "HKCU\Control Panel\Mouse" /v "SmoothMouseXCurve" /t REG_BINARY /d "0000000000000000C0CC2C0000000000809959000000000040668600000000000033B30000000000" /f >nul 2>&1 & goto MouseEnd
-goto ChooseScale
-:MouseEnd
-call :OptiWinRestart "Mouse Tweaks" "%MOUOF%"
-Mode 130,45
-goto tweaks
-
 :DisableHDCP
 for /f %%a in ('reg query "HKLM\System\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}" /t REG_SZ /s /e /f "NVIDIA" ^| findstr "HKEY"') do (
 	if "%HDCOF%" == "%COL%[91mOFF" (
@@ -654,22 +494,21 @@ goto Tweaks
 
 :ProfileInspector
 if "%NPIOF%" == "%COL%[91mOFF" (
-	reg add "HKCU\Software\OptiWin" /v NpiTweaks /f
+	rem https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip
+	reg delete "HKCU\Software\OptiWin" /v NpiTweaks /f
 	rmdir /S /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
-	curl -g -L -# -o %SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip "https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip"
-	powershell -NoProfile Expand-Archive '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip' -DestinationPath '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
-	del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip"
-	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Latency_and_Performances_Settings_by_Hone_Team2.nip" "https://raw.githubusercontent.com/auraside/HoneCtrl/main/Files/Latency_and_Performances_Settings_by_Hone_Team2.nip"
+	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\nvidiaProfileInspector.exe" "https://raw.githubusercontent.com/thenstop/optiwin/main/Resources/nvidiaProfileInspector.exe"
+	copy nvidiaProfileInspector.exe '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
+	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Latency_and_Performances_Settings_by_Hone_Team2.nip" "https://raw.githubusercontent.com/thenstop/optiwin/main/Resources/Latency_and_Performances_Settings_by_Hone_Team2.nip"
 	cd "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
 	nvidiaProfileInspector.exe "Latency_and_Performances_Settings_by_Hone_Team2.nip"
 ) >nul 2>&1 else (
 	rem https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip
 	reg delete "HKCU\Software\OptiWin" /v NpiTweaks /f
 	rmdir /S /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
-	curl -g -L -# -o %SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip "https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip"
-	powershell -NoProfile Expand-Archive '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip' -DestinationPath '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
-	del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip"
-	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Base_Profile.nip" "https://raw.githubusercontent.com/auraside/HoneCtrl/main/Files/Base_Profile.nip"
+	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\nvidiaProfileInspector.exe" "https://raw.githubusercontent.com/thenstop/optiwin/main/Resources/nvidiaProfileInspector.exe"
+	copy nvidiaProfileInspector.exe '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
+	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Base_Profile.nip" "https://raw.githubusercontent.com/thenstop/optiwin/main/Resources/Base_Profile.nip"
 	cd "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
 	nvidiaProfileInspector.exe "Base_Profile.nip"
 ) >nul 2>&1
@@ -1081,104 +920,6 @@ reg add "%REGPATH_AMD%\UMD" /v "TFQ" /t Reg_BINARY /d "3200" /f >nul 2>&1
 reg add "%REGPATH_AMD%\DAL2_DATA__2_0\DisplayPath_4\EDID_D109_78E9\Option" /v "ProtectionControl" /t Reg_BINARY /d "0100000001000000" /f >nul 2>&1
 goto Tweaks
 
-:AudioLatency
-cd %SYSTEMDRIVE%\OptiWin\Resources
-if "%AUDOF%" == "%COL%[91mOFF" (
-	if not exist nssm.exe (
-		curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nssm.exe" "https://github.com/auraside/HoneCtrl/raw/main/Files/nssm.exe"
-		curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\REAL.exe" "https://github.com/auraside/HoneCtrl/raw/main/Files/REAL.exe"
-		nssm install HoneAudio "%SYSTEMDRIVE%\OptiWin\Resources\REAL.exe"
-		nssm set HoneAudio DisplayName Hone Audio Latency Reducer Service
-		nssm set HoneAudio Description Reduces Audio Latency
-		nssm set HoneAudio Start SERVICE_AUTO_START
-		nssm set HoneAudio AppAffinity 1
-	)
-nssm set HoneAudio start SERVICE_AUTO_START
-nssm start HoneAudio
-) >nul 2>&1 else (
-nssm set HoneAudio start SERVICE_DISABLED
-nssm stop HoneAudio
-) >nul 2>&1
-goto Tweaks
-
-:Cleaner
-cls
-rmdir /S /Q "%SYSTEMDRIVE%\OptiWin\Resources\DeviceCleanupCmd\" >nul 2>&1
-del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\AdwCleaner.exe" >nul 2>&1
-del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\EmptyStandbyList.exe" >nul 2>&1
-curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\EmptyStandbyList.exe" "https://github.com/auraside/HoneCtrl/raw/main/Files/EmptyStandbyList.exe"
-curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\DeviceCleanupCmd.zip" "https://www.uwe-sieber.de/files/DeviceCleanupCmd.zip"
-curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\AdwCleaner.exe" "https://adwcleaner.malwarebytes.com/adwcleaner?channel=release"
-powershell -NoProfile Expand-Archive '%SYSTEMDRIVE%\OptiWin\Resources\DeviceCleanupCmd.zip' -DestinationPath '%SYSTEMDRIVE%\OptiWin\Resources\DeviceCleanupCmd\'
-del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\DeviceCleanupCmd.zip" >nul 2>&1
-del /Q %LOCALAPPDATA%\Microsoft\Windows\INetCache\IE\*.* >nul 2>&1
-del /Q "%SYSTEMROOT%\Downloaded Program Files\*.*" >nul 2>&1
-rd /s /q %SYSTEMDRIVE%\$Recycle.bin >nul 2>&1
-del /Q %TEMP%\*.* >nul 2>&1
-del /Q %SYSTEMROOT%\Temp\*.* >nul 2>&1
-del /Q %SYSTEMROOT%\Prefetch\*.* >nul 2>&1
-cd %SYSTEMDRIVE%\OptiWin\Resources >nul 2>&1
-AdwCleaner.exe /eula /clean /noreboot
-for %%g in (workingsets modifiedpagelist standbylist priority0standbylist) do EmptyStandbyList.exe %%g
-cd "%SYSTEMDRIVE%\OptiWin\Resources\DeviceCleanupCmd\x64" >nul 2>&1
-DeviceCleanupCmd.exe *
-goto tweaks
-
-:gameBooster
-cls & echo Select the game location, you can do it a second time to revert the changes.
-set dialog="about:<input type=file id=FILE><script>FILE.click();new ActiveXObject
-set dialog=%dialog%('Scripting.FileSystemObject').GetStandardStream(1).WriteLine(FILE.value);
-set dialog=%dialog%close();resizeTo(0,0);</script>"
-for /f "tokens=* delims=" %%p in ('mshta.exe %dialog%') do set "file=%%p"
-if "%file%"=="" goto :eof
-for %%F in ("%file%") do reg query "HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%file%" && (
-	reg delete "HKCU\Software\Microsoft\DirectX\UserGpuPreferences" /v "%file%" /f
-	reg delete "HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%file%" /f
-	reg delete "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%%~nxF\PerfOptions" /v "CpuPriorityClass" /f
-	cls
-	echo Game boost has been reverted!
-	Timeout 5
-) || (
-	reg add "HKCU\Software\Microsoft\DirectX\UserGpuPreferences" /v "%file%" /t Reg_SZ /d "GpuPreference=2;" /f >nul 2>&1
-	reg add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "%file%" /t Reg_SZ /d "~ DISABLEDXMAXIMIZEDWINDOWEDMODE" /f >nul 2>&1
-	reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\%%~nxF\PerfOptions" /v "CpuPriorityClass" /t Reg_DWORD /d "3" /f >nul 2>&1
-) >nul 2>&1
-goto :eof
-
-:softRestart
-cls
-cd %TEMP%
-if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/auraside/HoneCtrl/raw/main/Files/NSudo.exe"
-NSudo.exe -U:S -ShowWindowMode:Hide cmd /c "reg add "HKLM\SYSTEM\CurrentControlSet\Services\TrustedInstaller" /v "Start" /t Reg_DWORD /d "3" /f" >nul 2>&1
-NSudo.exe -U:S -ShowWindowMode:Hide cmd /c "sc start "TrustedInstaller"" >nul 2>&1
-if not exist "%TEMP%\restart64.exe" curl -g -L -# -o "%TEMP%\Restart64.exe" "https://github.com/auraside/HoneCtrl/raw/main/Files/restart64.exe"
-if not exist "%TEMP%\EmptyStandbyList.exe" curl -g -L -# -o "%TEMP%\EmptyStandbyList.exe" "https://github.com/auraside/HoneCtrl/raw/main/Files/EmptyStandbyList.exe"
-taskkill /f /im explorer.exe >nul 2>&1
-cd %SYSTEMROOT% >nul 2>&1
-start explorer.exe >nul 2>&1
-cd %TEMP%
-echo netsh advfirewall reset >RefreshNet.bat
-echo ipconfig /release >>RefreshNet.bat
-echo ipconfig /renew >>RefreshNet.bat
-echo nbtstat -R >>RefreshNet.bat
-echo nbtstat -RR >>RefreshNet.bat
-echo ipconfig /flushdns >>RefreshNet.bat
-echo ipconfig /registerdns >>RefreshNet.bat
-NSudo -U:T -P:E -M:S -ShowWindowMode:Hide -wait cmd /c "%TEMP%\RefreshNet.bat"
-Restart64.exe
-EmptyStandbyList.exe standbylist
-echo.
-echo.
-echo  --------------------------------------------------------------
-echo                      Soft Restart Completed
-echo  --------------------------------------------------------------
-echo.
-echo.
-echo                             [X] Close
-echo.
-%SYSTEMROOT%\System32\choice.exe /c:X /n /m "%DEL%                                >:"
-goto tweaks
-
 :Advanced
 REM for /f "tokens=2 delims==" %%a in ('wmic path Win32_Battery Get BatteryStatus /value ^| findstr "BatteryStatus"') do set status=%%a
 REM if %status% == 1 ( set Battery=DC ) else ( set Battery=AC )
@@ -1225,7 +966,7 @@ call :OptiTitle
 echo                                                           %COL%[1;4;34mNetwork Tweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Disable Task Offloading %TOFOF%    %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m NonBestEffortLimit %NONOF%         %COL%[33m[%COL%[37m 3 %COL%[33m]%COL%[37m AutoTuning %AUTOF%
-echo              %COL%[90mTask Offloading assigns the          %COL%[90mAllocate more bandwidth to apps      %COL%[90mCan reduce bufferbloat,
+echo              %COL%[90mTask Offloading assigns the          %COL%[90mAllocate more bandwidth to apps      %COL%[90mDisabling it can reduce bufferbloat,
 echo              %COL%[90mCPU to handle the NIC load           %COL%[90mUse only on fast connections         %COL%[90mbut lower your Network speed
 echo.
 echo                           %COL%[33m[%COL%[37m 4 %COL%[33m]%COL%[37m DSCP Value %DSCOF%                      %COL%[33m[%COL%[37m 5 %COL%[33m]%COL%[37m Wi-fi Congestion Provider %CONG%
@@ -1242,9 +983,9 @@ echo.
 echo.
 echo                                                            %COL%[1;4;34mOther Tweaks%COL%[0m
 echo.
-echo              %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Nvidia Driver %DRIOF%              %COL%[33m[%COL%[37m 10 %COL%[33m]%COL%[37m BCDEdit %BCDOF%                   %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Disable USB Power Savings %DPSOF%
-echo              %COL%[90mInstall the best tweaked nvidia      %COL%[90mTweaks your windows boot config      %COL%[90mDisable USB power savings that
-echo              %COL%[90mdriver for latency and fps           %COL%[90mdata to optimized settings           %COL%[90maffect latency
+echo              %COL%[33m[%COL%[37m 10 %COL%[33m]%COL%[37m BCDEdit %BCDOF%                   %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Disable USB Power Savings %DPSOF%
+echo              %COL%[90mTweaks your windows boot config      %COL%[90mDisable USB power savings that
+echo              %COL%[90mdata to optimized settings           %COL%[90maffect latency
 echo.
 echo.
 echo.
