@@ -29,7 +29,7 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m              OptiWin is a free and open-source fork of OptiWin
 echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
@@ -70,7 +70,7 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m              OptiWin is a free and open-source fork of OptiWin
 echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
@@ -187,7 +187,7 @@ for %%i in (PWROF MEMOF AUDOF TMROF NETOF AFFOF MOUOF AFTOF NICOF DSSOF SERVOF D
 	for /f "tokens=2 delims==" %%a in ('wmic path Win32_VideoController get VideoProcessor /value') do (
 		for %%n in (NVIDIA NVS Quadro GeForce MX RTX GTX) do echo %%a | find "%%n" >nul && set "NVIDIAGPU=Found"
 		for %%n in (AMD Ryzen Radeon HD XT FirePro) do echo %%a | find "%%n" >nul && set "AMDGPU=Found"
-		for %%n in (Intel HD UHD Iris XE) do echo %%a | find "%%n" >nul && set "INTELGPU=Found"
+		for %%n in (Intel HD UHD Iris XE Arc) do echo %%a | find "%%n" >nul && set "INTELGPU=Found"
 	)
 	if "!NVIDIAGPU!" neq "Found" for %%g in (HDCOF CMAOF NPIOF NVTOF NVIOF) do set "%%g=%COL%[93mN/A"
 	if "!AMDGPU!" neq "Found" for %%g in (AMDOF) do set "%%g=%COL%[93mN/A"
@@ -198,35 +198,35 @@ goto %PG%
 :TweaksPG1
 cls
 echo.
-echo                                                                                                                        %COL%[36mPage 1/2
+echo                                                                                               %COL%[36mPage 1/2
 call :OptiTitle
-echo                                                               %COL%[1;4;34mTweaks%COL%[0m
+echo                                                                                           %COL%[1;4;34mTweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Power Plan %PWROF%                 %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m SvcHostSplitThreshold %MEMOF%      %COL%[33m[%COL%[37m 3 %COL%[33m]%COL%[37m CSRSS High Priority %CRSOF%
-echo              %COL%[90mDesktop Power Plan, not good         %COL%[90mChanges the split threshold for      %COL%[90mCSRSS is responsible for mouse input
-echo              %COL%[90mto use with a laptop battery.        %COL%[90mservice host to your RAM             %COL%[90mset to high to improve input latency
+echo              %COL%[33mDesktop Power Plan, not good                                        %COL%[90mChanges the split threshold for                                     %COL%[33mCSRSS is responsible for mouse input
+echo              %COL%[33mto use with a laptop battery.                                       %COL%[33mservice host to your RAM                                            %COL%[33mset to high to improve input latency
 echo.
 echo                                   %COL%[33m[%COL%[37m 4 %COL%[33m]%COL%[37m MSI Mode %MSIOF%                   %COL%[33m[%COL%[37m 5 %COL%[33m]%COL%[37m Affinity %AFFOF%
-echo                                   %COL%[90mEnable MSI Mode for gpu and          %COL%[90mThis tweak will spread devices
-echo                                   %COL%[90mnetwork adapters                     %COL%[90mon multiple cpu cores
+echo                                   %COL%[90mEnable MSI Mode for gpu and                                         %COL%[90mThis tweak will spread devices
+echo                                   %COL%[90mnetwork adapters                                                    %COL%[90mon multiple cpu cores
 echo.
 echo                                   %COL%[33m[%COL%[37m 6 %COL%[33m]%COL%[37m W32 Priority Seperation %BLANK%    %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Memory Optimization %ME2OF%
-echo                                   %COL%[90mOptimizes the usage priority of      %COL%[90mOptimizes your fsutil, win
-echo                                   %COL%[90myour running services                %COL%[90mstartup settings and more
+echo                                   %COL%[90mOptimizes the usage priority of                                     %COL%[90mOptimizes your fsutil, win
+echo                                   %COL%[90myour running services                                               %COL%[90mstartup settings and more
 echo.
-echo                                                            %COL%[1;4;34mNvidia Tweaks%COL%[0m
+echo                                                                                          %COL%[1;4;34mNvidia Tweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 8 %COL%[33m]%COL%[37m Disable HDCP %HDCOF%              %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Disable Preemption %CMAOF%        %COL%[33m[%COL%[37m 10 %COL%[33m]%COL%[37m ProfileInspector %NPIOF%
-echo              %COL%[90mDisable copy protection technology   %COL%[90mDisable preemption requests from     %COL%[90mWill edit your Nvidia control panel
-echo              %COL%[90mof illegal High Definition content   %COL%[90mthe GPU scheduler                    %COL%[90mand add various tweaks
+echo              %COL%[33mDisable copy protection technology                                 %COL%[33mDisable preemption requests from                                   %COL%[33mWill edit your Nvidia control panel
+echo              %COL%[33mof illegal High Definition content                                 %COL%[33mthe GPU scheduler                                                  %COL%[33mand add various tweaks
 echo.
-echo              %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Disable Nvidia Telemetry %NVTOF%  %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Nvidia Tweaks %NVIOF%             %COL%[33m[%COL%[37m 13 %COL%[33m]%COL%[37m Disable Write Combining %DWCOF%
-echo              %COL%[90mRemove built in Nvidia telemetry     %COL%[90mVarious essential tweaks for         %COL%[90mStops data from being combined
-echo              %COL%[90mfrom your computer and driver.       %COL%[90mNvidia graphics cards                %COL%[90mand temporarily stored
+echo              %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Disable Nvidia Telemetry %NVTOF%  %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Nvidia Tweaks %NVIOF%           %COL%[33m[%COL%[37m 13 %COL%[33m]%COL%[37m Disable Write Combining %DWCOF%
+echo              %COL%[33mRemove built in Nvidia telemetry                                    %COL%[33mVarious essential tweaks for                                      %COL%[33mStops data from being combined
+echo              %COL%[33mfrom your computer and driver.                                      %COL%[33mNvidia graphics cards                                             %COL%[33mand temporarily stored
 echo.
 echo.
 echo.
-echo                                     %COL%[90m[ B for back ]         %COL%[31m[ X to close ]         %COL%[36m[ N page two ]
+echo                                                                          %COL%[90m[ B for back ]         %COL%[31m[ X to close ]         %COL%[36m[ N page two ]
 echo.
 set /p choice="%DEL%                                        %COL%[37mSelect a corresponding number to the options above > "
 if /i "%choice%"=="1" goto PowerPlan
@@ -250,29 +250,29 @@ goto Tweaks
 :TweaksPG2
 cls
 echo.
-echo                                                                                                                        %COL%[36mPage 2/2
+echo                                                                                               %COL%[36mPage 2/2
 call :OptiTitle
-echo                                                           %COL%[1;4;34mNetwork Tweaks%COL%[0m
+echo                                                                                           %COL%[1;4;34mNetwork Tweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Optimize TCP/IP %TCPOF%            %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m Optimize NIC %NICOF%               %COL%[33m[%COL%[37m 3 %COL%[33m]%COL%[37m Optimize Netsh %NETOF%
-echo              %COL%[90mTweaks your Internet Protocol        %COL%[90mOptimize your Network Card settings  %COL%[90mThis tweak will optimize your
-echo              %COL%[91mDon't use if you are using Wi-Fi     %COL%[91mDon't use if you are using Wi-Fi     %COL%[90mcomputer network configuration
+echo              %COL%[33mTweaks your Internet Protocol                                       %COL%[33mOptimize your Network Card settings                                 %COL%[33mThis tweak will optimize your
+echo              %COL%[33mDon't use if you are using Wi-Fi                                    %COL%[33mDon't use if you are using Wi-Fi                                    %COL%[33mcomputer network configuration
 echo.
-echo                                                             %COL%[1;4;34mGPU ^& CPU%COL%[0m
+echo                                                                                           %COL%[1;4;34mGPU ^& CPU%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 4 %COL%[33m]%COL%[37m All GPU Tweaks %ALLOF%             %COL%[33m[%COL%[37m 5 %COL%[33m]%COL%[37m Optimize Intel iGPU %DSSOF%        %COL%[33m[%COL%[37m 6 %COL%[33m]%COL%[37m AMD GPU Tweaks %AMDOF%
-echo              %COL%[90mVarious essential tweaks for all     %COL%[90mIncrease dedicated video vram on     %COL%[90mConfigure AMD GPU to optimized
-echo              %COL%[90mGPU brands and manufacturers         %COL%[90ma intel iGPU                         %COL%[90msettings
+echo              %COL%[33mVarious essential tweaks for all                                    %COL%[33mIncrease dedicated video vram on                                    %COL%[33mConfigure AMD GPU to optimized
+echo              %COL%[33mGPU brands and manufacturers                                        %COL%[33ma intel iGPU                                                        %COL%[33msettings
 echo.
-echo                                                        %COL%[1;4;34mMiscellaneous Tweaks%COL%[0m
+echo                                                                                           %COL%[1;4;34mMiscellaneous Tweaks%COL%[0m
 echo.
-echo                                                   %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
-echo                                                               %COL%[90mDisable protections against memory
-echo                                                               %COL%[90mbased attacks that consume perf
+echo                                                                             %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
+echo                                                                             %COL%[90mDisable protections against memory
+echo                                                                             %COL%[90mbased attacks that consume perf
 echo.
 echo.
 echo.
-echo                                     %COL%[90m[ B for back ]         %COL%[31m[ X to close ]         %COL%[36m[ N page one ]
+echo                                                                          %COL%[90m[ B for back ]         %COL%[31m[ X to close ]         %COL%[36m[ N page two ]
 echo.
 set /p choice="%DEL%                                        %COL%[37mSelect a corresponding number to the options above > "
 if /i "%choice%"=="1" goto TCPIP
@@ -289,20 +289,20 @@ goto TweaksPG2
 
 :PowerPlan
 if "%PWROF%" == "%COL%[91mOFF" (
-	curl -g -k -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\Calypto.pow" "https://github.com/thenstop/optiwin/raw/main/Calypto.pow"
+	curl -g -k -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\OptiWin.pow" "https://github.com/thedeveloperever/optiwin/raw/main/Resources/OptiWin.pow"
 	powercfg /d 44444444-4444-4444-4444-444444444444
-	powercfg -import "%SYSTEMDRIVE%\OptiWin\Resources\Calypto.pow" 44444444-4444-4444-4444-444444444444
-	powercfg /changename 44444444-4444-4444-4444-444444444449 "Calypto's Power Plan" "Increase FPS and lower latency."
+	powercfg -import "%SYSTEMDRIVE%\OptiWin\Resources\OptiWin.pow" 44444444-4444-4444-4444-444444444444
+	powercfg /changename 44444444-4444-4444-4444-444444444444 "OptiWin Power Plan" "Lowers latency and boosts FPS"
 REM Enable Idle on Hyper-Threading
 set THREADS=%NUMBER_OF_PROCESSORS%
 	for /f "tokens=2 delims==" %%n in ('wmic cpu get numberOfCores /value') do set CORES=%%n
 	if "%CORES%" == "%NUMBER_OF_PROCESSORS%" (
-		powercfg -setacvalueindex 44444444-4444-4444-4444-444444444449 sub_processor IDLEDISABLE 1
+		powercfg -setacvalueindex 44444444-4444-4444-4444-444444444444 sub_processor IDLEDISABLE 1
 ) else (
-		powercfg -setacvalueindex 44444444-4444-4444-4444-444444444449 sub_processor IDLEDISABLE 0 
+		powercfg -setacvalueindex 44444444-4444-4444-4444-444444444444 sub_processor IDLEDISABLE 0 
 )
-	powercfg -setacvalueindex 44444444-4444-4444-4444-444444444449 sub_processor IDLEDISABLE 0
-	powercfg -setactive "44444444-4444-4444-4444-444444444449"
+	powercfg -setacvalueindex 44444444-4444-4444-4444-444444444444 sub_processor IDLEDISABLE 0
+	powercfg -setactive "44444444-4444-4444-4444-444444444444"
 ) >nul 2>&1 else (
 	powercfg -restoredefaultschemes
 ) >nul 2>&1
@@ -494,25 +494,25 @@ goto Tweaks
 
 :ProfileInspector
 if "%NPIOF%" == "%COL%[91mOFF" (
-	rem https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip
-	reg delete "HKCU\Software\OptiWin" /v NpiTweaks /f
+	reg add "HKCU\Software\OptiWin" /v NpiTweaks /f
 	rmdir /S /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
-	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\nvidiaProfileInspector.exe" "https://raw.githubusercontent.com/thenstop/optiwin/main/Resources/nvidiaProfileInspector.exe"
-	copy nvidiaProfileInspector.exe '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
-	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Latency_and_Performances_Settings_by_Hone_Team2.nip" "https://raw.githubusercontent.com/thenstop/optiwin/main/Resources/Latency_and_Performances_Settings_by_Hone_Team2.nip"
+	curl -g -L -# -o %SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip "https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip"
+	powershell -NoProfile Expand-Archive '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip' -DestinationPath '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
+	del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip"
+	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\NVIDIAProfileInspector.nip" "https://raw.githubusercontent.com/thedeveloperever/optiwin/main/Resources/OptiWin.nip"
 	cd "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
-	nvidiaProfileInspector.exe "Latency_and_Performances_Settings_by_Hone_Team2.nip"
+	nvidiaProfileInspector.exe "OptiWin.nip"
 ) >nul 2>&1 else (
 	rem https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip
 	reg delete "HKCU\Software\OptiWin" /v NpiTweaks /f
 	rmdir /S /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
-	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\nvidiaProfileInspector.exe" "https://raw.githubusercontent.com/thenstop/optiwin/main/Resources/nvidiaProfileInspector.exe"
-	copy nvidiaProfileInspector.exe '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
-	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Base_Profile.nip" "https://raw.githubusercontent.com/thenstop/optiwin/main/Resources/Base_Profile.nip"
+	curl -g -L -# -o %SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip "https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip"
+	powershell -NoProfile Expand-Archive '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip' -DestinationPath '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
+	del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip"
+	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Base_Profile.nip" "https://raw.githubusercontent.com/thedeveloperever/optiwin/main/Resources/Base_Profile.nip"
 	cd "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
 	nvidiaProfileInspector.exe "Base_Profile.nip"
-) >nul 2>&1
-goto Tweaks
+) >nul 2>&1goto Tweaks
 
 :NVTelemetry
 if "%NVTOF%" == "%COL%[91mOFF" (
@@ -595,7 +595,7 @@ if "%MITOF%" == "%COL%[91mOFF" (
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverride" /t REG_DWORD /d "3" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverrideMask" /t REG_DWORD /d "3" /f
 	cd %TEMP%
-	if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/auraside/HoneCtrl/raw/main/Files/NSudo.exe"
+	if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/auraside/OptiWin/raw/main/Files/NSudo.exe"
 	NSudo -U:S -ShowWindowMode:Hide -wait cmd /c "reg add "HKLM\SYSTEM\CurrentControlSet\Services\TrustedInstaller" /v "Start" /t Reg_DWORD /d "3" /f"
 	NSudo -U:S -ShowWindowMode:Hide -wait cmd /c "sc start "TrustedInstaller""
 	NSudo -U:T -P:E -M:S -ShowWindowMode:Hide -wait cmd /c "ren %SYSTEMROOT%\System32\mcupdate_GenuineIntel.dll mcupdate_GenuineIntel.old"
@@ -615,7 +615,7 @@ if "%MITOF%" == "%COL%[91mOFF" (
 	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v FeatureSettingsOverride /f
 	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v FeatureSettingsOverrideMask /f
 	cd %TEMP%
-	if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/auraside/HoneCtrl/raw/main/Files/NSudo.exe"
+	if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/auraside/OptiWin/raw/main/Files/NSudo.exe"
 	NSudo -U:S -ShowWindowMode:Hide -wait cmd /c "reg add "HKLM\SYSTEM\CurrentControlSet\Services\TrustedInstaller" /v "Start" /t Reg_DWORD /d "2" /f"
 	NSudo -U:S -ShowWindowMode:Hide -wait cmd /c "sc start "TrustedInstaller"" 
 	NSudo -U:T -P:E -M:S -ShowWindowMode:Hide -wait cmd /c "ren %SYSTEMROOT%\System32\mcupdate_GenuineIntel.old mcupdate_GenuineIntel.dll"
@@ -634,7 +634,7 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m              OptiWin is a free and open-source fork of OptiWin
 echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
@@ -737,7 +737,7 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m              OptiWin is a free and open-source fork of OptiWin
 echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
@@ -866,7 +866,7 @@ if "%ALLOF%" == "%COL%[91mOFF" (
 goto Tweaks
 
 :Intel
-echo %DSSOF% | find "N/A" >nul && call :HoneCtrlError "You don't have an intel GPU" && goto Tweaks
+echo %DSSOF% | find "N/A" >nul && call :OptiWinError "You don't have an intel GPU" && goto Tweaks
 REM DedicatedSegmentSize in Intel iGPU
 if "%DSSOF%" == "%COL%[91mOFF" (
 	reg add "HKLM\SOFTWARE\Intel\GMM" /v "DedicatedSegmentSize" /t REG_DWORD /d "1024" /f
@@ -876,7 +876,7 @@ if "%DSSOF%" == "%COL%[91mOFF" (
 goto Tweaks
 
 :AMD
-echo %AMDOF% | find "N/A" >nul && call :HoneCtrlError "You don't have an AMD GPU" && goto Tweaks
+echo %AMDOF% | find "N/A" >nul && call :OptiWinError "You don't have an AMD GPU" && goto Tweaks
 REM AMD Registry Location
 for /f %%i in ('reg query "HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}" /s /v "DriverDesc"^| findstr "HKEY AMD ATI"') do if /i "%%i" neq "DriverDesc" (set "REGPATH_AMD=%%i")
 REM AMD Tweaks
@@ -1085,7 +1085,7 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                            %COL%[90m              OptiWin is a free and open-source fork of OptiWin
 echo                            %COL%[90m                   made to improve your computing experience
 echo.
 echo.
