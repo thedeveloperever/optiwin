@@ -490,23 +490,22 @@ goto Tweaks
 :ProfileInspector
 if "%NPIOF%" == "%COL%[91mOFF" (
 	reg add "HKCU\Software\OptiWin" /v NpiTweaks /f
-	rmdir /S /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
 	curl -g -L -# -o %SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip "https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip"
 	powershell -NoProfile Expand-Archive '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip' -DestinationPath '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
 	del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip"
-	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\NVIDIAProfileInspector.nip" "https://raw.githubusercontent.com/thedeveloperever/optiwin/main/Resources/OptiWin.nip"
+        curl -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\OptiWin.nip" "https://raw.githubusercontent.com/thedeveloperever/optiwin/main/Resources/OptiWin.nip"
 	cd "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
 	nvidiaProfileInspector.exe "OptiWin.nip"
+        cd "%SYSTEMDRIVE%\OptiWin\Resources\"
+        rd /Q /S nvidiaProfileInspector\
 ) >nul 2>&1 else (
-	rem https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip
-	reg delete "HKCU\Software\OptiWin" /v NpiTweaks /f
-	rmdir /S /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
+	reg add "HKCU\Software\OptiWin" /v NpiTweaks /f
 	curl -g -L -# -o %SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip "https://github.com/Orbmu2k/nvidiaProfileInspector/releases/latest/download/nvidiaProfileInspector.zip"
 	powershell -NoProfile Expand-Archive '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip' -DestinationPath '%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\'
 	del /F /Q "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector.zip"
-	curl -g -L -# -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Base_Profile.nip" "https://raw.githubusercontent.com/thedeveloperever/optiwin/main/Resources/Base_Profile.nip"
-	cd "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\"
-	nvidiaProfileInspector.exe "Base_Profile.nip"
+        curl -o "%SYSTEMDRIVE%\OptiWin\Resources\nvidiaProfileInspector\Base_Profile.nip" "https://raw.githubusercontent.com/thedeveloperever/optiwin/main/Resources/Base_Profile.nip"
+        cd "%SYSTEMDRIVE%\OptiWin\Resources\"
+        rd /Q /S nvidiaProfileInspector\
 ) >nul 2>&1goto Tweaks
 
 :NVTelemetry
