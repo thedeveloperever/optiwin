@@ -29,22 +29,22 @@ echo.
 echo.
 call :OptiTitle
 echo.
-echo                            %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
-echo                            %COL%[90m                   made to improve your computing experience
+echo                           %COL%[90m              OptiWin is a free and open-source fork of HoneCTRL
+echo                           %COL%[90m                   made to improve your computing experience
 echo.
 echo.
 echo.
-echo                            %COL%[90m                                   WARNING:
-echo                            %COL%[90m  Please note that there is no guarantee of an FPS boost or latency reduction
-echo                            %COL%[90m                        as every system is different.
+echo                           %COL%[90m                                   WARNING:
+echo                           %COL%[90m  Please note that there is no guarantee of an FPS boost or latency reduction
+ech                            %COL%[90m                        as every system is different.
 echo.
-echo                            %COL%[90m  If you don't know what a tweak is, do not use it and instead research more
-echo                            %COL%[90m                                    on it.
+echo                           %COL%[90m  If you don't know what a tweak is, do not use it and instead research more
+echo                           %COL%[90m                                    on it.
 echo.
-echo                            %COL%[90m   For any questions and/or concerns, please research on your own from the
-echo                            %COL%[90m                           original tweak sources.
+echo                           %COL%[90m   For any questions and/or concerns, please research on your own from the
+echo                           %COL%[90m                           original tweak sources.
 echo.
-echo                            %COL%[90m             Please enter "I agree" without quotes to continue:
+echo                           %COL%[90m             Please enter "I agree" without quotes to continue:
 echo.
 echo.
 echo.
@@ -78,7 +78,7 @@ echo.
 echo.
 echo.
 echo.
-echo                                                %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Optimizations          %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m Advanced 
+echo                                             %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Optimizations          %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m Advanced 
 echo.
 echo.
 echo.
@@ -197,36 +197,35 @@ for %%i in (PWROF MEMOF AUDOF TMROF NETOF AFFOF MOUOF AFTOF NICOF DSSOF SERVOF D
 goto %PG%
 :TweaksPG1
 cls
-echo.
-echo                                                                                               %COL%[36mPage 1/2
+echo                                                                                                                        %COL%[36mPage 1/2
 call :OptiTitle
-echo                                                                                           %COL%[1;4;34mTweaks%COL%[0m
+echo                                                               %COL%[1;4;34mTweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Power Plan %PWROF%                 %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m SvcHostSplitThreshold %MEMOF%      %COL%[33m[%COL%[37m 3 %COL%[33m]%COL%[37m CSRSS High Priority %CRSOF%
 echo              %COL%[90mDesktop Power Plan, not good         %COL%[90mChanges the split threshold for      %COL%[90mCSRSS is responsible for mouse input
 echo              %COL%[90mto use with a laptop battery.        %COL%[90mservice host to your RAM             %COL%[90mset to high to improve input latency
 echo.
 echo                                   %COL%[33m[%COL%[37m 4 %COL%[33m]%COL%[37m MSI Mode %MSIOF%                   %COL%[33m[%COL%[37m 5 %COL%[33m]%COL%[37m Affinity %AFFOF%
-echo                                   %COL%[90mEnable MSI Mode for gpu and                                         %COL%[90mThis tweak will spread devices
-echo                                   %COL%[90mnetwork adapters                                                    %COL%[90mon multiple cpu cores
+echo                                   %COL%[90mEnable MSI Mode for gpu and          %COL%[90mThis tweak will spread devices
+echo                                   %COL%[90mnetwork adapters                     %COL%[90mon multiple cpu cores
 echo.
 echo                                   %COL%[33m[%COL%[37m 6 %COL%[33m]%COL%[37m W32 Priority Seperation %BLANK%    %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Memory Optimization %ME2OF%
-echo                                   %COL%[90mOptimizes the usage priority of                                     %COL%[90mOptimizes your fsutil, win
-echo                                   %COL%[90myour running services                                               %COL%[90mstartup settings and more
+echo                                   %COL%[90mOptimizes the usage priority of      %COL%[90mOptimizes your fsutil, win
+echo                                   %COL%[90myour running services                %COL%[90mstartup settings and more
 echo.
-echo                                                                                          %COL%[1;4;34mNvidia Tweaks%COL%[0m
+echo                                                            %COL%[1;4;34mNvidia Tweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 8 %COL%[33m]%COL%[37m Disable HDCP %HDCOF%              %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Disable Preemption %CMAOF%        %COL%[33m[%COL%[37m 10 %COL%[33m]%COL%[37m ProfileInspector %NPIOF%
 echo              %COL%[90mDisable copy protection technology   %COL%[90mDisable preemption requests from     %COL%[90mWill edit your Nvidia control panel
 echo              %COL%[90mof illegal High Definition content   %COL%[90mthe GPU scheduler                    %COL%[90mand add various tweaks
 echo.
-echo              %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Disable Nvidia Telemetry %NVTOF%  %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Nvidia Tweaks %NVIOF%           %COL%[33m[%COL%[37m 13 %COL%[33m]%COL%[37m Disable Write Combining %DWCOF%
+echo              %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Disable Nvidia Telemetry %NVTOF%  %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Nvidia Tweaks %NVIOF%             %COL%[33m[%COL%[37m 13 %COL%[33m]%COL%[37m Disable Write Combining %DWCOF%
 echo              %COL%[90mRemove built in Nvidia telemetry     %COL%[90mVarious essential tweaks for         %COL%[90mStops data from being combined
 echo              %COL%[90mfrom your computer and driver.       %COL%[90mNvidia graphics cards                %COL%[90mand temporarily stored
 echo.
 echo.
 echo.
-echo                                                                          %COL%[90m[ B for back ]         %COL%[31m[ X to close ]         %COL%[36m[ N page two ]
+echo                                     %COL%[90m[ B for back ]         %COL%[31m[ X to close ]         %COL%[36m[ N page two ]
 echo.
 set /p choice="%DEL%                                        %COL%[37mSelect a corresponding number to the options above > "
 if /i "%choice%"=="1" goto PowerPlan
@@ -250,25 +249,25 @@ goto Tweaks
 :TweaksPG2
 cls
 echo.
-echo                                                                                               %COL%[36mPage 2/2
+echo                                                                                                                        %COL%[36mPage 2/2
 call :OptiTitle
-echo                                                                                           %COL%[1;4;34mNetwork Tweaks%COL%[0m
+echo                                                           %COL%[1;4;34mNetwork Tweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Optimize TCP/IP %TCPOF%            %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m Optimize NIC %NICOF%               %COL%[33m[%COL%[37m 3 %COL%[33m]%COL%[37m Optimize Netsh %NETOF%
 echo              %COL%[90mTweaks your Internet Protocol        %COL%[90mOptimize your Network Card settings  %COL%[90mThis tweak will optimize your
 echo              %COL%[91mDon't use if you are using Wi-Fi     %COL%[91mDon't use if you are using Wi-Fi     %COL%[90mcomputer network configuration
 echo.
-echo                                                                                           %COL%[1;4;34mGPU ^& CPU%COL%[0m
+echo                                                             %COL%[1;4;34mGPU ^& CPU%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 4 %COL%[33m]%COL%[37m All GPU Tweaks %ALLOF%             %COL%[33m[%COL%[37m 5 %COL%[33m]%COL%[37m Optimize Intel iGPU %DSSOF%        %COL%[33m[%COL%[37m 6 %COL%[33m]%COL%[37m AMD GPU Tweaks %AMDOF%
 echo              %COL%[90mVarious essential tweaks for all     %COL%[90mIncrease dedicated video vram on     %COL%[90mConfigure AMD GPU to optimized
 echo              %COL%[90mGPU brands and manufacturers         %COL%[90ma intel iGPU                         %COL%[90msettings
 echo.
-echo                                                                                           %COL%[1;4;34mMiscellaneous Tweaks%COL%[0m
+echo                                                        %COL%[1;4;34mMiscellaneous Tweaks%COL%[0m
 echo.
-echo                                                                             %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
-echo                                                                             %COL%[90mDisable protections against memory
-echo                                                                             %COL%[90mbased attacks that consume perf
+echo                                                   %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Disable Mitigations %MITOF%
+echo                                                               %COL%[90mDisable protections against memory
+echo                                                               %COL%[90mbased attacks that consume perf
 echo.
 echo.
 echo.
