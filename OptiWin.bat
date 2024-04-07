@@ -594,7 +594,7 @@ if "%MITOF%" == "%COL%[91mOFF" (
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverride" /t REG_DWORD /d "3" /f
 	reg add "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v "FeatureSettingsOverrideMask" /t REG_DWORD /d "3" /f
 	cd %TEMP%
-	if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/auraside/OptiWin/raw/main/Files/NSudo.exe"
+	if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/thenstop/OptiWin/raw/main/Resources/NSudo.exe"
 	NSudo -U:S -ShowWindowMode:Hide -wait cmd /c "reg add "HKLM\SYSTEM\CurrentControlSet\Services\TrustedInstaller" /v "Start" /t Reg_DWORD /d "3" /f"
 	NSudo -U:S -ShowWindowMode:Hide -wait cmd /c "sc start "TrustedInstaller""
 	NSudo -U:T -P:E -M:S -ShowWindowMode:Hide -wait cmd /c "ren %SYSTEMROOT%\System32\mcupdate_GenuineIntel.dll mcupdate_GenuineIntel.old"
@@ -614,7 +614,7 @@ if "%MITOF%" == "%COL%[91mOFF" (
 	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v FeatureSettingsOverride /f
 	reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v FeatureSettingsOverrideMask /f
 	cd %TEMP%
-	if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/auraside/OptiWin/raw/main/Files/NSudo.exe"
+	if not exist "%TEMP%\NSudo.exe" curl -g -L -# -o "%TEMP%\NSudo.exe" "https://github.com/thenstop/OptiWin/raw/main/Resources/NSudo.exe"
 	NSudo -U:S -ShowWindowMode:Hide -wait cmd /c "reg add "HKLM\SYSTEM\CurrentControlSet\Services\TrustedInstaller" /v "Start" /t Reg_DWORD /d "2" /f"
 	NSudo -U:S -ShowWindowMode:Hide -wait cmd /c "sc start "TrustedInstaller"" 
 	NSudo -U:T -P:E -M:S -ShowWindowMode:Hide -wait cmd /c "ren %SYSTEMROOT%\System32\mcupdate_GenuineIntel.old mcupdate_GenuineIntel.dll"
@@ -1020,7 +1020,7 @@ goto Advanced
 if "%NONOF%" == "%COL%[91mOFF" (
 	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "NonBestEffortLimit" /t REG_DWORD /d "10" /f
 ) >nul 2>&1 else (
-	reg delete "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "NonBestEffortLimit" /f
+	reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Psched" /v "NonBestEffortLimit" /t REG_DWORD /d "0" /f
 ) >nul 2>&1
 goto Advanced
 
@@ -1032,7 +1032,7 @@ if "%AUTOF%" == "%COL%[91mOFF" (
 	netsh winsock set autotuning off
 ) >nul 2>&1 else (
 	reg delete "HKCU\Software\OptiWin" /v TuningTweak /f
-	netsh int tcp set global autotuninglevel=normal
+	netsh int tcp set global autotuninglevel=experimental
 	netsh winsock set autotuning on
 ) >nul 2>&1
 goto Advanced
