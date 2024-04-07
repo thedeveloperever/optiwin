@@ -33,10 +33,9 @@ echo                           %COL%[90m              OptiWin is a free and open
 echo                           %COL%[90m                   made to improve your computing experience
 echo.
 echo.
-echo.
 echo                           %COL%[90m                                   WARNING:
 echo                           %COL%[90m  Please note that there is no guarantee of an FPS boost or latency reduction
-echo                            %COL%[90m                        as every system is different.
+echo                           %COL%[90m                         as every system is different.
 echo.
 echo                           %COL%[90m  If you don't know what a tweak is, do not use it and instead research more
 echo                           %COL%[90m                                    on it.
