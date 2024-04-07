@@ -205,13 +205,10 @@ echo              %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Power Plan %PWROF%  
 echo              %COL%[90mDesktop Power Plan, not good         %COL%[90mChanges the split threshold for      %COL%[90mCSRSS is responsible for mouse input
 echo              %COL%[90mto use with a laptop battery.        %COL%[90mservice host to your RAM             %COL%[90mset to high to improve input latency
 echo.
-echo                                   %COL%[33m[%COL%[37m 4 %COL%[33m]%COL%[37m MSI Mode %MSIOF%                   %COL%[33m[%COL%[37m 5 %COL%[33m]%COL%[37m Affinity %AFFOF%
-echo                                   %COL%[90mEnable MSI Mode for gpu and          %COL%[90mThis tweak will spread devices
-echo                                   %COL%[90mnetwork adapters                     %COL%[90mon multiple cpu cores
+echo                                   %COL%[33m[%COL%[37m 4 %COL%[33m]%COL%[37m MSI Mode %MSIOF%                   %COL%[33m[%COL%[37m 5 %COL%[33m]%COL%[37m Affinity %AFFOF%    %COL%[33m[%COL%[37m 6 %COL%[33m]%COL%[37m W32 Priority Seperation %BLANK%
+echo                                   %COL%[90mEnable MSI Mode for gpu and          %COL%[90mThis tweak will spread devices           %COL%[90mOptimizes the usage priority of
+echo                                   %COL%[90mnetwork adapters                     %COL%[90mon multiple cpu cores         %COL%[90myour running services
 echo.
-echo                                   %COL%[33m[%COL%[37m 6 %COL%[33m]%COL%[37m W32 Priority Seperation %BLANK%    %COL%[33m[%COL%[37m 7 %COL%[33m]%COL%[37m Memory Optimization %ME2OF%
-echo                                   %COL%[90mOptimizes the usage priority of      %COL%[90mOptimizes your fsutil, win
-echo                                   %COL%[90myour running services                %COL%[90mstartup settings and more
 echo.
 echo                                                                                          %COL%[1;4;34mNvidia Tweaks%COL%[0m
 echo.
@@ -234,13 +231,12 @@ if /i "%choice%"=="3" goto CSRSS
 if /i "%choice%"=="4" goto MSI
 if /i "%choice%"=="5" goto Affinity
 if /i "%choice%"=="6" goto W32PrioSep
-if /i "%choice%"=="7" goto MemOptimization
-if /i "%choice%"=="8" goto DisableHDCP
-if /i "%choice%"=="9" goto DisablePreemtion
-if /i "%choice%"=="10" goto ProfileInspector
-if /i "%choice%"=="11" goto NVTelemetry
-if /i "%choice%"=="12" goto NvidiaTweaks
-if /i "%choice%"=="13" goto DisableWriteCombining
+if /i "%choice%"=="7" goto DisableHDCP
+if /i "%choice%"=="8" goto DisablePreemtion
+if /i "%choice%"=="9" goto ProfileInspector
+if /i "%choice%"=="10" goto NVTelemetry
+if /i "%choice%"=="11" goto NvidiaTweaks
+if /i "%choice%"=="12" goto DisableWriteCombining
 if /i "%choice%"=="X" exit /b
 if /i "%choice%"=="B" goto MainMenu
 if /i "%choice%"=="N" (set "PG=TweaksPG2") & goto TweaksPG2
