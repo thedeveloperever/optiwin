@@ -197,9 +197,10 @@ for %%i in (PWROF MEMOF AUDOF TMROF NETOF AFFOF MOUOF AFTOF NICOF DSSOF SERVOF D
 goto %PG%
 :TweaksPG1
 cls
-echo                                                                                                                        %COL%[36mPage 1/2
+echo.
+echo                                                                                               %COL%[36mPage 1/2
 call :OptiTitle
-echo                                                               %COL%[1;4;34mTweaks%COL%[0m
+echo                                                                                           %COL%[1;4;34mTweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 1 %COL%[33m]%COL%[37m Power Plan %PWROF%                 %COL%[33m[%COL%[37m 2 %COL%[33m]%COL%[37m SvcHostSplitThreshold %MEMOF%      %COL%[33m[%COL%[37m 3 %COL%[33m]%COL%[37m CSRSS High Priority %CRSOF%
 echo              %COL%[90mDesktop Power Plan, not good         %COL%[90mChanges the split threshold for      %COL%[90mCSRSS is responsible for mouse input
@@ -213,13 +214,13 @@ echo                                   %COL%[33m[%COL%[37m 6 %COL%[33m]%COL%[37m
 echo                                   %COL%[90mOptimizes the usage priority of      %COL%[90mOptimizes your fsutil, win
 echo                                   %COL%[90myour running services                %COL%[90mstartup settings and more
 echo.
-echo                                                            %COL%[1;4;34mNvidia Tweaks%COL%[0m
+echo                                                                                          %COL%[1;4;34mNvidia Tweaks%COL%[0m
 echo.
 echo              %COL%[33m[%COL%[37m 8 %COL%[33m]%COL%[37m Disable HDCP %HDCOF%              %COL%[33m[%COL%[37m 9 %COL%[33m]%COL%[37m Disable Preemption %CMAOF%        %COL%[33m[%COL%[37m 10 %COL%[33m]%COL%[37m ProfileInspector %NPIOF%
 echo              %COL%[90mDisable copy protection technology   %COL%[90mDisable preemption requests from     %COL%[90mWill edit your Nvidia control panel
 echo              %COL%[90mof illegal High Definition content   %COL%[90mthe GPU scheduler                    %COL%[90mand add various tweaks
 echo.
-echo              %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Disable Nvidia Telemetry %NVTOF%  %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Nvidia Tweaks %NVIOF%             %COL%[33m[%COL%[37m 13 %COL%[33m]%COL%[37m Disable Write Combining %DWCOF%
+echo              %COL%[33m[%COL%[37m 11 %COL%[33m]%COL%[37m Disable Nvidia Telemetry %NVTOF%  %COL%[33m[%COL%[37m 12 %COL%[33m]%COL%[37m Nvidia Tweaks %NVIOF%           %COL%[33m[%COL%[37m 13 %COL%[33m]%COL%[37m Disable Write Combining %DWCOF%
 echo              %COL%[90mRemove built in Nvidia telemetry     %COL%[90mVarious essential tweaks for         %COL%[90mStops data from being combined
 echo              %COL%[90mfrom your computer and driver.       %COL%[90mNvidia graphics cards                %COL%[90mand temporarily stored
 echo.
